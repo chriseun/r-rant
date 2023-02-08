@@ -7,7 +7,7 @@ function edit_form (data) {
           <main>
             <h1>Edit Place</h1>
           </main>
-<form method="POST" action={`/places/${data.id}?_method=PUT`}>
+<form method="POST" action={`/places/${data.id}?_method=PUT`}> {/*need to fix path {data.place.id} */}
   <div className="row">
   <div className="form-group col-sm-6">
     <label htmlFor="name">Place Name</label>
