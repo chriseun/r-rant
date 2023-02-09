@@ -14,6 +14,13 @@ db.Place.create([{
     cuisines: 'Coffee, Bakery',
     pic: '/images/restaurant-2.jpg',
     founded: 2020
+},{
+      name: 'Sushi Ai',
+    city: 'Long Beach',
+    state: 'CA',
+    cuisines: 'Sushi, Japanese',
+    pic: '/images/restaurant-3.jpg',
+    founded: 2020
 }])
 
 .then(() => {
