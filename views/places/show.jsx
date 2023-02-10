@@ -65,6 +65,10 @@
 // module.exports = show
 
 
+
+
+
+
 const React = require('react')
 const Def = require('../default')
 
@@ -75,7 +79,25 @@ function show(data) {
       No comments yet!
     </h3>
   )
+  let rating = (
+    <h3 className='inactive'>
+      Not yet Rated
+    </h3>
+  )
   if (data.place.comments.length) {
+    let sumRatings = data.place.comments.reduce((tot, c) =>{
+      return tot + c.stars
+    }, 0)
+    let averageRating = Math.round(sumRatings / data.place.comments.length)
+      let stars = ''
+  for (let i = 0; i < averageRating; i++) {
+    stars += '⭐️'
+  }
+    rating = (
+      <h3>
+        {stars} stars
+      </h3>
+    )
     comments = data.place.comments.map(c => {
       return (
         // Add css later
@@ -113,6 +135,8 @@ function show(data) {
               <h2>
                 Rating
               </h2>
+              {rating}
+              <br />
               <p>
                 Not Rated
               </p>
@@ -128,7 +152,7 @@ function show(data) {
                         {/* buttons */}
             <div className="edit-delete">
               <div className="p-2">
-                <a href={`/places/${data.id}/edit`} className="btn btn-primary">
+                <a href={`/places/${data.place.id}/edit`} className="btn btn-primary">
                   Edit
                 </a>
               </div>

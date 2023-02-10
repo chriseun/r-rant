@@ -204,8 +204,16 @@ router.get('/:id', (req, res) => {
 
 // * REPLACE OR UPDATE page
 router.put('/:id', (req, res) => {
-res.send('PUT /places/:id stub')
+    db.Place.findByIdAndUpdate(req.params.id, req.body)
+    .then(() => {
+        res.redirect(`/places/${req.params.id}`)
+    })
+    .catch(err => {
+        console.log('err', err)
+        res.render('error404')
+    })
 })
+
 
 // * DELETE button
 router.delete('/:id', (req, res) => {
@@ -222,9 +230,11 @@ router.delete('/:id', (req, res) => {
 
 
 // * EDIT button
-router.get('/:id/edit', (req, res) => {
-  res.send('GET edit form stub')
-})
+// router.get('/:id/edit', (req, res) => {
+//   res.send('GET edit form stub')
+// })
+
+
 
 // * POST COMMENT
 router.post('/:id/comment', (req, res) => {
@@ -257,8 +267,33 @@ router.post('/:id/comment', (req, res) => {
     })
 })
 
-router.delete('/:id/rant/:commentId', (req, res) => {
-    res.send('GET /places/:id/rant/:rantId stub')
+router.get('/:id/edit', (req, res) => {
+  console.log('why doesn\'t this fucking work?')
+    db.Place.findById(req.params.id)
+    .then(place => {
+        res.render('places/edit', { place })
+    })
+    .catch(err => {
+        res.render('error404')
+    })
+})
+
+// router.delete('/:id/rant/:commentId', (req, res) => {
+//     res.send('GET /places/:id/rant/:rantId stub')
+
+// })
+// * DELETE comment
+router.delete('/:id/comment/:commentId', (req, res) => {
+  // res.send('GET /places/:id/comment/:commentId stub')
+    db.Comment.findByIdAndDelete(req.params.commentId)
+    .then(() => {
+        console.log('Comment deleted')
+        res.redirect(`/places/${req.params.id}`)
+    })
+    .catch(err => {
+        console.log('err', err)
+        res.render('error404')
+    })
 
 })
 
